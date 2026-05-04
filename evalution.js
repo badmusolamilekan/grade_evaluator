@@ -42,13 +42,12 @@ gradeForm.addEventListener("submit", function (e) {
   const average = (math + eng + civic + biology) / 4;
   let grade = document.getElementById("valueResult");
   result.innerHTML = `the total  score is ${total} and the average score is ${average}.`;
-  result.style.color = "green"
+  result.style.color = "black"
   if (average >= 50) {
     grade.innerHTML = "You passed.";
     grade.style.color = "green";
   } else {
     grade.innerHTML = "You failed.";
-    result.style.color = "red";
     grade.style.color = "red";
   }
 });
