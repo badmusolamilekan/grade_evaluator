@@ -48,6 +48,7 @@ gradeForm.addEventListener("submit", function (e) {
     grade.style.color = "green";
   } else {
     grade.innerHTML = "You failed.";
+    result.style.color = "red";
     grade.style.color = "red";
   }
 });
