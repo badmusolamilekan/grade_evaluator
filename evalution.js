@@ -2,52 +2,57 @@ let gradeForm = document.getElementById("gradeForm");
 gradeForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  var mathInput = document.getElementById("mathInput");
-  var engInput = document.getElementById("engInput");
-  var civicInput = document.getElementById("civicInput");
-  var biologyInput = document.getElementById("biologyInput");
+  const mathRaw = document.getElementById("mathInput").value;
+  const engRaw = document.getElementById("engInput").value;
+  const civicRaw = document.getElementById("civicInput").value;
+  const bioRaw = document.getElementById("biologyInput").value;
 
   let result = document.getElementById("emptyResult");
-  if (
-    mathInput.value === "" ||
-    engInput.value === "" ||
-    civicInput.value === "" ||
-    biologyInput.value === ""
-  ) {
-    result.innerHTML =
-      "Make sure you input all the field before proceeding!!!.";
+  result.classList.remove("text-red-500", "text-green-500");
 
-    return;
-  }
-
-  if (
-    parseFloat(mathInput.value) < 0 ||
-    parseFloat(mathInput.value) > 100 ||
-    parseFloat(engInput.value) < 0 ||
-    parseFloat(engInput.value) > 100 ||
-    parseFloat(civicInput.value) < 0 ||
-    parseFloat(civicInput.value) > 100 ||
-    parseFloat(biologyInput.value) < 0 ||
-    parseFloat(biologyInput.value) > 100
-  ) {
-    result.innerHTML = "Make sure you input the value between 0 - 100";
-    return;
-  }
-  const math = parseFloat(mathInput.value);
-  const eng = parseFloat(engInput.value);
-  const civic = parseFloat(civicInput.value);
-  const biology = parseFloat(biologyInput.value);
-
-  const total = math + eng + civic + biology;
-  const average = (math + eng + civic + biology) / 4;
   let grade = document.getElementById("valueResult");
-  result.innerHTML = `the total  score is ${total} and the average score is ${average}.`;
-  result.style.color = "black"
+  grade.classList.remove("text-red-500", "text-green-500");
+
+  if (!mathRaw || !engRaw || !civicRaw || !bioRaw) {
+    result.innerHTML = "Make sure you input all fields before proceeding!!!";
+    result.classList.add("text-red-500");
+    return;
+  }
+
+  const mathVal = Number(mathRaw);
+  const engVal = Number(engRaw);
+  const civicVal = Number(civicRaw);
+  const bioVal = Number(bioRaw);
+
+  if (isNaN(mathVal) || isNaN(engVal) || isNaN(civicVal) || isNaN(bioVal)) {
+    result.innerHTML = "Your score must be a number, not text.";
+    result.classList.add("text-red-500");
+    return;
+  }
+
+  if (
+    mathVal < 0 || mathVal > 100 ||
+    engVal < 0 || engVal > 100 ||
+    civicVal < 0 || civicVal > 100 ||
+    bioVal < 0 || bioVal > 100
+  ) {
+    result.innerHTML = "Make sure you input values between 0 - 100";
+    result.classList.add("text-red-500");
+    return;
+  }
+
+  const total = mathVal + engVal + civicVal + bioVal;
+  const average = total / 4;
+
+  result.innerHTML = `The total score is ${total} and the average score is ${average}.`;
+
   if (average >= 50) {
+    result.classList.add("text-green-500");
     grade.innerHTML = "You passed.";
-    grade.style.color = "green";
+    grade.classList.add("text-green-500");
   } else {
+    result.classList.add("text-red-500");
     grade.innerHTML = "You failed.";
-    grade.style.color = "red";
+    grade.classList.add("text-red-500");
   }
 });
